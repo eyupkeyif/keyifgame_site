@@ -4,212 +4,257 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Keyif Game</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232340B8'/%3E%3Cpath d='M16 5 L19 13 L27 16 L19 19 L16 27 L13 19 L5 16 L13 13 Z' fill='%23F2B33D'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23E2472E'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 10' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='7' height='8' fill='%230d0720'/%3E%3Crect x='2' y='1' width='5' height='1' fill='%23ff9a4a'/%3E%3Crect x='3' y='2' width='3' height='1' fill='%23d9572b'/%3E%3Crect x='2' y='3' width='5' height='4' fill='%23d9572b'/%3E%3Crect x='0' y='8' width='9' height='1' fill='%23e9dcff'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%230d0720'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%230d0720'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#1a1030">
 <meta property="og:title" content="Keyif Game">
 <meta property="og:description" content="Games for joy. Everywhere you play.">
 <meta property="og:type" content="website">
 <meta name="description" content="Keyif Game is an independent studio making joyful games for mobile, PC, console, web, handheld and VR.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap">
 <style>
-/* Layout: İznik-tile palette; a live "one game, every screen" stage leads, then platforms, method, status, contact on a single centered column. */
+/* Layout: a 16-bit "title screen" hero (dusk scene + tea-glass mascot) followed by game-menu sections in pixel dialog boxes, on one centred column. Single committed dusk theme. */
 :root{
-  --bg:#F5F6FA;          /* porcelain */
-  --surface:#FFFFFF;
-  --ink:#121A3A;         /* cobalt ink */
-  --muted:#545C7A;
-  --line:#DCE0EC;
-  --cobalt:#2340B8;
-  --turq:#139A9C;
-  --coral:#E2472E;
-  --sun:#F2B33D;
-  --screen:#0E1533;
-  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
-  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
-  --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+  --night:#1a1030;      /* page ground, = front hill */
+  --panel:#2a1749;      /* dialog box fill */
+  --panel-hi:#4a2a6b;   /* bevel light */
+  --panel-lo:#160c2c;   /* bevel dark */
+  --ink:#0d0720;        /* outlines + hard shadows */
+  --cream:#fff3dc;      /* main text */
+  --muted:#cdbbe6;      /* secondary text */
+  --lantern:#ffd36b;    /* accent: labels, cursor */
+  --coral:#ff7b5c;      /* accent: headline word, primary button */
+  --mint:#5ee6b8;       /* accent: specs, success */
+  --rose:#ff7b9c;
+  --px:4px;             /* one "screen pixel" for UI borders */
+  --display:"Pixelify Sans", "Courier New", ui-monospace, monospace;
+  --body:"Nunito", "Segoe UI", system-ui, sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B1028; --surface:#131A3B; --ink:#EEF0F8; --muted:#A3AAC8; --line:#262F5A;
-    --cobalt:#7C93FF; --turq:#3CC8C6; --coral:#FF6B52; --sun:#F6C35A; --screen:#060A1D;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0B1028; --surface:#131A3B; --ink:#EEF0F8; --muted:#A3AAC8; --line:#262F5A;
-  --cobalt:#7C93FF; --turq:#3CC8C6; --coral:#FF6B52; --sun:#F6C35A; --screen:#060A1D;
-  color-scheme:dark;
-}
-
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--night);color:var(--cream);font-family:var(--body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;background-size:192px 192px;image-rendering:pixelated}
+canvas.spr, canvas.pixel{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+a{color:var(--lantern)}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
 .wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--turq);outline-offset:3px;border-radius:6px}
-h1,h2,h3{font-family:var(--display);line-height:1.02;letter-spacing:-.02em;text-wrap:balance;margin:0}
-.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
-section{padding-block:clamp(56px,9vw,110px)}
-section + section{border-top:1px solid var(--line)}
+:focus-visible{outline:var(--px) solid var(--lantern);outline-offset:var(--px)}
 
-/* nav */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.3rem;text-decoration:none;letter-spacing:-.02em}
-.logo svg{width:28px;height:28px}
-nav ul{display:flex;gap:clamp(12px,2.5vw,28px);list-style:none;margin:0;padding:0;font-size:.95rem;font-weight:500}
-nav a{text-decoration:none;color:var(--muted)}
-nav a:hover{color:var(--ink)}
-@media (max-width:640px){nav .hide-sm{display:none}}
+/* ---------- pixel dialog box ---------- */
+.pbox{
+  --bg:var(--panel); --hi:var(--panel-hi); --lo:var(--panel-lo);
+  position:relative;background:var(--bg);
+  box-shadow:
+    0 calc(-1*var(--px)) 0 0 var(--ink), 0 var(--px) 0 0 var(--ink),
+    calc(-1*var(--px)) 0 0 0 var(--ink), var(--px) 0 0 0 var(--ink),
+    inset 0 var(--px) 0 0 var(--hi), inset var(--px) 0 0 0 var(--hi),
+    inset 0 calc(-1*var(--px)) 0 0 var(--lo), inset calc(-1*var(--px)) 0 0 0 var(--lo),
+    calc(2*var(--px)) calc(2*var(--px)) 0 0 var(--ink), var(--px) calc(3*var(--px)) 0 0 var(--ink), calc(3*var(--px)) var(--px) 0 0 var(--ink);
+  margin:var(--px) calc(3*var(--px)) calc(3*var(--px)) var(--px);
+}
 
-/* hero */
-.hero{padding-block:clamp(40px,7vw,80px) clamp(48px,7vw,90px);border-top:0}
-.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
-.hero-grid > *{min-width:0}
-@media (max-width:880px){.hero-grid{grid-template-columns:1fr}}
-.hero h1{font-size:clamp(2.9rem,7.4vw,5.6rem);font-weight:800;margin-block:14px 22px}
+/* ---------- pixel buttons ---------- */
+.btn{
+  --bg:var(--coral); --hi:#ffb199; --lo:#c4513b; --fg:var(--ink);
+  display:inline-flex;align-items:center;gap:10px;font:600 1rem var(--display);letter-spacing:.04em;text-transform:uppercase;
+  padding:12px 20px 12px 18px;border:0;color:var(--fg);background:var(--bg);text-decoration:none;cursor:pointer;position:relative;
+  box-shadow:
+    0 calc(-1*var(--px)) 0 0 var(--ink), 0 var(--px) 0 0 var(--ink),
+    calc(-1*var(--px)) 0 0 0 var(--ink), var(--px) 0 0 0 var(--ink),
+    inset 0 var(--px) 0 0 var(--hi), inset 0 calc(-1*var(--px)) 0 0 var(--lo),
+    var(--px) calc(2*var(--px)) 0 0 var(--ink), calc(2*var(--px)) var(--px) 0 0 var(--ink);
+  margin:var(--px) calc(2*var(--px)) calc(2*var(--px)) var(--px);
+}
+.btn:active{transform:translate(var(--px),var(--px));box-shadow:
+    0 calc(-1*var(--px)) 0 0 var(--ink), 0 var(--px) 0 0 var(--ink),
+    calc(-1*var(--px)) 0 0 0 var(--ink), var(--px) 0 0 0 var(--ink),
+    inset 0 var(--px) 0 0 var(--lo)}
+.btn.alt{--bg:var(--panel-hi); --hi:#6e4a91; --lo:#2a1749; --fg:var(--cream)}
+.btn.mint{--bg:var(--mint); --hi:#b8ffe6; --lo:#2fa883}
+.cursor-able::before{content:"";width:12px;height:14px;background:var(--cursor) no-repeat center/12px 14px;image-rendering:pixelated;opacity:0;flex:none}
+.cursor-able:hover::before,.cursor-able:focus-visible::before{opacity:1;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cursor-able:hover::before,.cursor-able:focus-visible::before{animation:none}}
+
+/* ---------- header ---------- */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(26,16,48,.94);box-shadow:0 var(--px) 0 0 var(--ink),0 calc(2*var(--px)) 0 0 var(--panel)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:10px;font:700 1.5rem var(--display);color:var(--cream);text-decoration:none;letter-spacing:.02em}
+.logo canvas{width:27px;height:30px}
+nav ul{display:flex;gap:clamp(4px,1.5vw,18px);list-style:none;margin:0;padding:0}
+nav a{display:inline-flex;align-items:center;gap:6px;font:500 1rem var(--display);color:var(--muted);text-decoration:none;padding:6px 4px;letter-spacing:.03em}
+nav a:hover,nav a:focus-visible{color:var(--lantern)}
+@media (max-width:560px){.logo span{display:none} nav{min-width:0} nav ul{gap:2px} nav a{font-size:.88rem;padding:6px 5px;letter-spacing:0} nav a::before{display:none}}
+@media (max-width:360px){nav a{font-size:.8rem;padding:6px 3px}}
+
+/* ---------- hero / title screen ---------- */
+.hero{position:relative;overflow:hidden;min-height:clamp(540px,78vh,700px);display:flex;align-items:center;isolation:isolate}
+.hero canvas#scene{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero .wrap{width:100%;display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:end;padding-block:56px 120px}
+.hero .wrap > *{min-width:0}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:32px 110px}}
+.eyebrow{font:500 .85rem var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--lantern)}
+.hero h1{font-size:clamp(2.3rem,5.2vw,4.1rem);font-weight:700;margin:14px 0 22px;color:var(--cream);
+  text-shadow:4px 4px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink)}
 .hero h1 em{font-style:normal;color:var(--coral)}
-.hero .lede{font-size:1.2rem;color:var(--muted);max-width:34ch;margin:0 0 30px}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;font:600 1rem var(--body);padding:13px 22px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer;transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:var(--ink)}
+.hero .lede{max-width:40ch;padding:16px 20px;font-size:1.06rem}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:22px}
+.press{margin-top:22px;font:600 1rem var(--display);letter-spacing:.24em;color:var(--lantern);background:none;border:0;padding:6px 0;cursor:pointer;text-shadow:2px 2px 0 var(--ink);animation:blink 1.1s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){.press{animation:none}}
+.buddy{display:flex;flex-direction:column;align-items:center;gap:10px;justify-self:center}
+.bubble{--bg:var(--cream); --hi:#ffffff; --lo:#e3d2b8;color:var(--ink);font:500 1rem var(--display);padding:10px 14px;max-width:24ch;text-align:center}
+.bubble::after{content:"";position:absolute;left:50%;bottom:calc(-1*var(--px)*4);width:calc(var(--px)*3);height:calc(var(--px)*3);background:var(--cream);transform:translateX(-50%);box-shadow:0 var(--px) 0 0 var(--ink), var(--px) 0 0 0 var(--ink), calc(-1*var(--px)) 0 0 0 var(--ink)}
+#mascot{width:144px;height:144px;cursor:pointer;filter:drop-shadow(4px 4px 0 var(--ink))}
+@media (max-width:860px){.buddy{flex-direction:row;justify-self:start;order:-1;align-items:center} .bubble::after{display:none} #mascot{width:96px;height:96px}}
 
-/* stage */
-.stage-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.chip{font:600 .8rem var(--mono);letter-spacing:.04em;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
-.stage{height:clamp(260px,34vw,360px);display:grid;place-items:center}
-.device{position:relative;background:var(--ink);border-radius:18px;padding:10px;transition:width .5s cubic-bezier(.6,0,.2,1),height .5s cubic-bezier(.6,0,.2,1),border-radius .5s,padding .5s;display:flex;flex-direction:column}
-.device .bar{display:none;height:18px;align-items:center;gap:5px;padding-left:4px}
-.device .bar i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
-.device.web .bar{display:flex}
-.device canvas{flex:1;width:100%;min-height:0;border-radius:8px;background:var(--screen);display:block;cursor:pointer}
-.device .stand{position:absolute;left:50%;bottom:-16px;transform:translateX(-50%);width:30%;height:6px;border-radius:3px;background:var(--line);opacity:0;transition:opacity .4s}
-.device.pc .stand,.device.console .stand{opacity:1}
-.stage-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px;font:.8rem var(--mono);color:var(--muted)}
-.stage-meta b{color:var(--ink);font-weight:600}
-
-/* platforms */
-.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;align-items:end;margin-bottom:44px}
+/* ---------- sections ---------- */
+section{padding-block:clamp(64px,9vw,112px)}
+.sec-label{display:flex;align-items:center;gap:10px}
+.sec-label::before{content:"";width:16px;height:16px;background:var(--star) no-repeat center/16px 16px;image-rendering:pixelated}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:20px 48px;align-items:end;margin-bottom:40px}
 .sec-head > *{min-width:0}
-@media (max-width:760px){.sec-head{grid-template-columns:1fr}}
-.sec-head h2{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:800;margin-top:12px}
-.sec-head p{color:var(--muted);margin:0;max-width:52ch}
-.plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-@media (max-width:860px){.plat-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.plat-grid{grid-template-columns:1fr}}
-.plat{background:var(--surface);padding:26px 24px 24px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.plat .ico{width:40px;height:40px;color:var(--cobalt)}
-.plat h3{font-size:1.45rem;font-weight:600}
-.plat p{margin:0;color:var(--muted);font-size:.98rem}
-.plat .spec{margin-top:auto;padding-top:8px;font:.75rem/1.5 var(--mono);color:var(--turq);letter-spacing:.02em}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+h2{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:700;margin-top:12px;text-shadow:3px 3px 0 var(--ink)}
+.sec-head p,.muted{color:var(--muted);max-width:52ch}
 
-/* method */
-.method{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(24px,4vw,48px)}
-@media (max-width:760px){.method{grid-template-columns:1fr}}
-.m{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
-.m > div{min-width:0}
-.tile{width:52px;height:52px;border-radius:12px;display:grid;place-items:center}
-.tile svg{width:30px;height:30px}
-.m h3{font-size:1.35rem;font-weight:600;margin-bottom:6px}
-.m p{margin:0;color:var(--muted);max-width:46ch}
+/* demo */
+.demo-row{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:center;margin-bottom:56px}
+.demo-row > *{min-width:0}
+@media (max-width:860px){.demo-row{grid-template-columns:1fr}}
+.demo-copy h3{font-size:1.6rem;margin-bottom:10px}
+.demo-copy p{color:var(--muted);max-width:42ch}
+.demo-copy .keys{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.key{font:500 .85rem var(--display);padding:4px 10px;background:var(--panel-lo);color:var(--cream);box-shadow:0 0 0 2px var(--ink),0 4px 0 0 var(--ink)}
+.demo{padding:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 8px;margin-bottom:16px}
+.chip{font:600 .85rem var(--display);letter-spacing:.06em;padding:6px 12px;border:0;cursor:pointer;color:var(--muted);background:var(--panel-lo);box-shadow:0 0 0 2px var(--ink)}
+.chip[aria-pressed="true"]{background:var(--lantern);color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.stage{height:clamp(340px,34vw,380px);display:grid;place-items:center;background:var(--panel-lo);box-shadow:inset 0 0 0 2px var(--ink)}
+.device{position:relative;background:var(--frame,#c9b6e4);padding:var(--pad,10px);box-shadow:0 0 0 var(--px) var(--ink), var(--px) var(--px) 0 var(--px) var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px}
+.device canvas{box-shadow:0 0 0 2px var(--ink);cursor:pointer;touch-action:none}
+.device .bar{display:none;align-self:stretch;height:12px;gap:5px;align-items:center}
+.device .bar i{width:6px;height:6px;background:var(--ink)}
+.device.web .bar{display:flex}
+.device.web .bar i:nth-child(1){background:var(--coral)} .device.web .bar i:nth-child(2){background:var(--lantern)} .device.web .bar i:nth-child(3){background:var(--mint)}
+.device .stand{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:-22px;width:30%;height:14px;background:var(--frame);box-shadow:0 0 0 var(--px) var(--ink)}
+.device.pc .stand,.device.console .stand{display:block}
+.device.console .stand{width:60%;height:8px;bottom:-14px}
+.device .dpad,.device .abtn{display:none;position:absolute;top:50%;transform:translateY(-50%)}
+.device.handheld .dpad,.device.handheld .abtn{display:block}
+.device .dpad{left:14px;width:8px;height:8px;background:var(--ink);box-shadow:0 -8px 0 var(--ink),0 8px 0 var(--ink),-8px 0 0 var(--ink),8px 0 0 var(--ink)}
+.device .abtn{right:14px;width:10px;height:10px;background:var(--lantern);box-shadow:0 0 0 2px var(--ink),-14px 10px 0 0 var(--mint),-14px 10px 0 2px var(--ink)}
+.meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;font:500 .9rem var(--display);color:var(--muted);letter-spacing:.04em}
+.meta b{color:var(--lantern);font-weight:600}
 
-/* status */
-.status{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
-.status > *{min-width:0}
-@media (max-width:860px){.status{grid-template-columns:1fr}}
-.status h2{font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:800;margin-block:12px 16px}
-.status p{color:var(--muted);max-width:50ch;margin:0 0 14px}
-.yakinda{font-family:var(--display);font-weight:800;color:var(--coral)}
-.board{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:12px}
-.row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
-.row b{font-family:var(--display);font-weight:600;font-size:1.1rem}
-.row small{display:block;color:var(--muted);font-size:.85rem}
-.pill{font:600 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;white-space:nowrap}
-.pill.dev{background:color-mix(in srgb,var(--sun) 25%,transparent);color:var(--ink)}
-.pill.proto{background:color-mix(in srgb,var(--turq) 22%,transparent);color:var(--ink)}
-.pill.idea{background:color-mix(in srgb,var(--cobalt) 18%,transparent);color:var(--ink)}
-form.signup{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
-form.signup input{flex:1 1 220px;min-width:0;font:1rem var(--body);padding:13px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
-.formnote{font-size:.9rem;color:var(--turq);min-height:1.4em;margin-top:10px}
+/* inventory */
+.inv{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 28px}
+@media (max-width:900px){.inv{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.inv{grid-template-columns:1fr}}
+.item{padding:20px 22px 22px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:start}
+.item > div{min-width:0}
+.slot{width:72px;height:72px;display:grid;place-items:center;background:var(--panel-lo);box-shadow:inset 0 0 0 2px var(--ink),inset 4px 4px 0 0 rgba(0,0,0,.25);grid-row:span 3}
+.slot canvas{width:64px;height:64px}
+.item h3{font-size:1.35rem;color:var(--cream)}
+.item p{color:var(--muted);font-size:.97rem;line-height:1.5}
+.item .spec{font:500 .82rem var(--display);color:var(--mint);letter-spacing:.04em;margin-top:6px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 28px}
+@media (max-width:760px){.skills{grid-template-columns:1fr}}
+.skill{padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.skill > div{min-width:0}
+.skill .slot{width:64px;height:64px;grid-row:auto}
+.skill .slot canvas{width:44px;height:44px}
+.skill h3{font-size:1.35rem;margin-bottom:6px}
+.skill p{color:var(--muted)}
+
+/* games */
+.games{display:grid;grid-template-columns:1.15fr .85fr;gap:28px 32px;align-items:start}
+.games > *{min-width:0}
+@media (max-width:860px){.games{grid-template-columns:1fr}}
+.yakinda{color:var(--coral);font-family:var(--display);font-weight:700}
+.files{padding:20px 22px 24px}
+.files h3,.party h3{font-size:1.25rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lantern);margin-bottom:14px}
+.file{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;align-items:center;padding:14px 16px;background:var(--panel-lo);box-shadow:inset 0 0 0 2px var(--ink)}
+.file + .file{margin-top:12px}
+.file > div{min-width:0}
+.file .no{font:700 .9rem var(--display);color:var(--ink);background:var(--lantern);padding:4px 8px;box-shadow:0 0 0 2px var(--ink)}
+.file b{font:600 1.15rem var(--display);display:block}
+.file small{color:var(--muted);font-size:.88rem}
+.stagebar{display:flex;gap:3px;align-items:center}
+.stagebar i{width:10px;height:14px;background:var(--panel);box-shadow:0 0 0 2px var(--ink)}
+.stagebar i.on{background:var(--mint)}
+.file .lbl{grid-column:2 / 4;font:500 .8rem var(--display);color:var(--mint);letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px}
+.party{padding:20px 22px 24px}
+.party p{color:var(--muted)}
+form.signup{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+form.signup label{font:500 .85rem var(--display);letter-spacing:.06em;color:var(--cream)}
+form.signup input{font:1rem var(--body);padding:12px 14px;border:0;background:var(--panel-lo);color:var(--cream);box-shadow:inset 0 0 0 2px var(--ink),inset 4px 4px 0 0 rgba(0,0,0,.3);min-width:0}
+form.signup input::placeholder{color:#8f7cae}
+form.signup input:focus-visible{outline:3px solid var(--lantern);outline-offset:2px}
+form.signup .btn{align-self:flex-start}
+.formnote{font:500 .9rem var(--display);color:var(--mint);min-height:1.4em;letter-spacing:.02em}
 
 /* contact */
-.contact{background:var(--cobalt);color:#fff;border-radius:26px;padding:clamp(32px,6vw,64px);display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end;position:relative;overflow:hidden}
-.contact > *{min-width:0;position:relative}
-@media (max-width:760px){.contact{grid-template-columns:1fr}}
-.contact h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800}
-.contact p{opacity:.85;margin:14px 0 0;max-width:44ch}
-.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.mail code{font:600 clamp(1rem,2.4vw,1.25rem) var(--mono);user-select:all;word-break:break-all;background:rgba(255,255,255,.12);padding:10px 14px;border-radius:10px}
-.mail button{font:600 .9rem var(--body);padding:10px 16px;border-radius:999px;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer}
-.contact .pattern{position:absolute;inset:0;width:100%;height:100%;opacity:.13;pointer-events:none}
+.talk{display:grid;grid-template-columns:auto 1fr;gap:20px 28px;padding:26px;align-items:start}
+.talk > div{min-width:0}
+@media (max-width:640px){.talk{grid-template-columns:1fr}}
+.portrait{width:120px;height:120px;display:grid;place-items:center;background:#3a1f5e;box-shadow:inset 0 0 0 2px var(--ink),inset 0 -40px 0 0 #2a1749}
+.portrait canvas{width:96px;height:96px}
+.nametag{display:inline-block;font:700 .95rem var(--display);letter-spacing:.12em;color:var(--ink);background:var(--lantern);padding:4px 10px;box-shadow:0 0 0 2px var(--ink);margin-bottom:12px}
+.talk h2{margin-top:0;font-size:clamp(1.8rem,4vw,2.6rem)}
+.talk p{color:var(--muted);margin-top:10px;max-width:56ch}
+.mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin-top:20px}
+.mailrow code{font:600 clamp(1rem,2.6vw,1.2rem) var(--display);color:var(--cream);background:var(--panel-lo);padding:10px 14px;box-shadow:inset 0 0 0 2px var(--ink);user-select:all;word-break:break-all}
+.mailrow a.mailto{color:inherit;text-decoration:none}
 
-footer{padding-block:36px 48px;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:var(--ink)}
-
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+footer{padding-block:24px 56px;color:var(--muted);font-size:.95rem}
+footer .wrap{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+footer .thanks{font:700 1.4rem var(--display);color:var(--lantern);letter-spacing:.16em;text-shadow:3px 3px 0 var(--ink)}
+footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:var(--cream)}
+footer a{color:var(--muted)}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="Keyif Game home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--cobalt)"/><path d="M16 5 L19 13 L27 16 L19 19 L16 27 L13 19 L5 16 L13 13 Z" fill="var(--sun)"/><circle cx="16" cy="16" r="3" fill="var(--coral)"/></svg>
-      keyif
-    </a>
+    <a class="logo" href="#top" aria-label="Keyif Game home"><canvas class="spr" data-sprite="mini" data-px="3" aria-hidden="true"></canvas><span>keyif</span></a>
     <nav aria-label="Main">
       <ul>
-        <li><a href="#platforms">Platforms</a></li>
-        <li class="hide-sm"><a href="#approach">Approach</a></li>
-        <li><a href="#games">Games</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a class="cursor-able" href="#platforms">Platforms</a></li>
+        <li><a class="cursor-able" href="#approach">Approach</a></li>
+        <li><a class="cursor-able" href="#games">Games</a></li>
+        <li><a class="cursor-able" href="#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="wrap hero-grid">
+  <section class="hero" aria-label="Title screen">
+    <canvas id="scene" class="pixel" aria-hidden="true"></canvas>
+    <div class="wrap">
       <div>
         <p class="eyebrow">Independent game studio · keyifgame.com</p>
-        <h1>Games for joy.<br><em>Everywhere</em> you play.</h1>
-        <p class="lede">Keyif Game makes bright, easy-to-love games and ships each one to the phone in your pocket, the PC on your desk, the console under your TV and the browser in between.</p>
+        <h1>Games for joy. <em>Everywhere</em> you play.</h1>
+        <p class="lede pbox">Keyif Game makes bright, easy-to-love games and ships each one to the phone in your pocket, the PC on your desk, the console under your TV and the browser in between.</p>
         <div class="cta">
-          <a class="btn" href="#games">See what's coming</a>
-          <a class="btn ghost" href="#contact">Work with us</a>
+          <a class="btn cursor-able" href="#games">See what's coming</a>
+          <a class="btn alt cursor-able" href="#contact">Work with us</a>
         </div>
+        <button class="press" type="button" id="press">PRESS START</button>
       </div>
-
-      <div class="stage-card" aria-label="One game shown on different platforms">
-        <div class="chips" role="group" aria-label="Choose a platform">
-          <button class="chip" data-p="mobile" aria-pressed="true">Mobile</button>
-          <button class="chip" data-p="pc" aria-pressed="false">PC</button>
-          <button class="chip" data-p="console" aria-pressed="false">Console</button>
-          <button class="chip" data-p="handheld" aria-pressed="false">Handheld</button>
-          <button class="chip" data-p="web" aria-pressed="false">Web</button>
-          <button class="chip" data-p="vr" aria-pressed="false">VR</button>
-        </div>
-        <div class="stage" id="stage">
-          <div class="device mobile" id="device">
-            <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <canvas id="game" aria-label="Playable demo: catch the falling tiles"></canvas>
-            <div class="stand" aria-hidden="true"></div>
-          </div>
-        </div>
-        <div class="stage-meta">
-          <span>Input: <b id="input">Tap &amp; drag</b></span>
-          <span>Screen: <b id="ratio">9:19.5</b></span>
-          <span>Caught: <b id="score">0</b></span>
-        </div>
+      <div class="buddy">
+        <p class="bubble pbox" id="bubble" role="status">Hoş geldin! Grab a çay and press start.</p>
+        <canvas id="mascot" class="pixel" role="img" aria-label="Keyif's mascot: a small tea glass with a smiling face" tabindex="0"></canvas>
       </div>
     </div>
   </section>
@@ -218,49 +263,50 @@ footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:va
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <p class="eyebrow">Platforms</p>
+          <p class="eyebrow sec-label">Platforms</p>
           <h2>One idea. Six kinds of screen.</h2>
         </div>
         <p>We design every game so it feels native wherever it runs: touch-first on phones, precise with a mouse, comfortable from the couch with a gamepad, and instant in a browser tab.</p>
       </div>
 
-      <div class="plat-grid">
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="12" y="4" width="16" height="32" rx="4"/><path d="M18 31h4"/></svg>
-          <h3>Mobile</h3>
-          <p>Short sessions, one-thumb controls and fair free-to-play design.</p>
-          <span class="spec">iOS · Android · tablets</span>
-        </article>
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="7" width="32" height="21" rx="3"/><path d="M15 34h10M20 28v6"/></svg>
-          <h3>PC</h3>
-          <p>Full keyboard and mouse support, remappable keys and scalable settings.</p>
-          <span class="spec">Windows · macOS · Linux · Steam</span>
-        </article>
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 13h24a5 5 0 0 1 5 5l1 9a4 4 0 0 1-7 3l-3-4H12l-3 4a4 4 0 0 1-7-3l1-9a5 5 0 0 1 5-5z"/><path d="M12 18v6M9 21h6"/><circle cx="27" cy="19" r="1.4" fill="currentColor"/><circle cx="30" cy="23" r="1.4" fill="currentColor"/></svg>
-          <h3>Console</h3>
-          <p>Big-screen readability, couch co-op and gamepad-first menus.</p>
-          <span class="spec">PlayStation · Xbox · Nintendo Switch</span>
-        </article>
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="2" y="11" width="36" height="18" rx="9"/><rect x="12" y="14" width="16" height="12" rx="1.5"/><circle cx="7" cy="20" r="1.6" fill="currentColor"/><circle cx="33" cy="20" r="1.6" fill="currentColor"/></svg>
-          <h3>Handheld PC</h3>
-          <p>Tuned for battery life, small text sizes and suspend-and-resume.</p>
-          <span class="spec">Steam Deck · ROG Ally · Legion Go</span>
-        </article>
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="6" width="32" height="28" rx="3"/><path d="M4 13h32"/><circle cx="9" cy="9.5" r=".9" fill="currentColor"/><circle cx="13" cy="9.5" r=".9" fill="currentColor"/><path d="m15 21-4 3 4 3M25 21l4 3-4 3"/></svg>
-          <h3>Web</h3>
-          <p>Click a link and play. Fast loading, no install, playable demos everywhere.</p>
-          <span class="spec">HTML5 · WebGL · WebGPU</span>
-        </article>
-        <article class="plat">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 14h30v12a3 3 0 0 1-3 3h-7l-3-4h-4l-3 4H8a3 3 0 0 1-3-3z"/><path d="M11 14V10h18v4"/></svg>
-          <h3>XR</h3>
-          <p>Comfort-first movement and hand tracking for players who want to step inside.</p>
-          <span class="spec">Meta Quest · Apple Vision Pro · PC VR</span>
-        </article>
+      <div class="demo-row">
+        <div class="demo-copy">
+          <h3>Try it: sugar for the çay.</h3>
+          <p>One tiny game, six screens. Pick a platform and the same game reshapes itself. Move the tea glass to catch sugar cubes and stars.</p>
+          <div class="keys" aria-label="Controls"><span class="key">Mouse / touch</span><span class="key">← →</span></div>
+        </div>
+        <div class="demo pbox" id="demo">
+          <div class="chips" role="group" aria-label="Choose a platform">
+            <button type="button" class="chip" data-p="mobile" aria-pressed="true">Mobile</button>
+            <button type="button" class="chip" data-p="pc" aria-pressed="false">PC</button>
+            <button type="button" class="chip" data-p="console" aria-pressed="false">Console</button>
+            <button type="button" class="chip" data-p="handheld" aria-pressed="false">Handheld</button>
+            <button type="button" class="chip" data-p="web" aria-pressed="false">Web</button>
+            <button type="button" class="chip" data-p="vr" aria-pressed="false">VR</button>
+          </div>
+          <div class="stage" id="stage">
+            <div class="device mobile" id="device">
+              <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+              <canvas id="game" class="pixel" aria-label="Playable demo: move the tea glass to catch sugar cubes"></canvas>
+              <div class="stand" aria-hidden="true"></div>
+              <span class="dpad" aria-hidden="true"></span><span class="abtn" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="meta">
+            <span>Input: <b id="input">Tap &amp; drag</b></span>
+            <span>Screen: <b id="ratio">9:16</b></span>
+            <span>Sugar: <b id="score">0</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv">
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="phone" aria-hidden="true"></canvas></div><div><h3>Mobile</h3><p>Short sessions, one-thumb controls and fair free-to-play design.</p><p class="spec">iOS · Android · tablets</p></div></article>
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="monitor" aria-hidden="true"></canvas></div><div><h3>PC</h3><p>Full keyboard and mouse support, remappable keys and scalable settings.</p><p class="spec">Windows · macOS · Linux · Steam</p></div></article>
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="pad" aria-hidden="true"></canvas></div><div><h3>Console</h3><p>Big-screen readability, couch co-op and gamepad-first menus.</p><p class="spec">PlayStation · Xbox · Nintendo Switch</p></div></article>
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="handheld" aria-hidden="true"></canvas></div><div><h3>Handheld PC</h3><p>Tuned for battery life, small text sizes and suspend-and-resume.</p><p class="spec">Steam Deck · ROG Ally · Legion Go</p></div></article>
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="browser" aria-hidden="true"></canvas></div><div><h3>Web</h3><p>Click a link and play. Fast loading, no install, playable demos everywhere.</p><p class="spec">HTML5 · WebGL · WebGPU</p></div></article>
+        <article class="item pbox"><div class="slot"><canvas class="spr" data-sprite="vr" aria-hidden="true"></canvas></div><div><h3>XR</h3><p>Comfort-first movement and hand tracking for players who want to step inside.</p><p class="spec">Meta Quest · Apple Vision Pro · PC VR</p></div></article>
       </div>
     </div>
   </section>
@@ -269,67 +315,62 @@ footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:va
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <p class="eyebrow">How we build</p>
+          <p class="eyebrow sec-label">How we build</p>
           <h2>Made once, played everywhere.</h2>
         </div>
         <p>Going multiplatform is a design choice from day one. These rules shape every project we start.</p>
       </div>
-      <div class="method">
-        <div class="m">
-          <span class="tile" style="background:color-mix(in srgb,var(--coral) 18%,transparent);color:var(--coral)"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="15" cy="15" r="11"/><path d="M10 17c1.4 2 3 3 5 3s3.6-1 5-3M11 12h.01M19 12h.01"/></svg></span>
-          <div><h3>Fun before features</h3><p>We prototype the core loop in days and keep only the ideas that make people smile on the first try.</p></div>
-        </div>
-        <div class="m">
-          <span class="tile" style="background:color-mix(in srgb,var(--cobalt) 16%,transparent);color:var(--cobalt)"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9h20M5 15h20M5 21h20"/><circle cx="10" cy="9" r="2.4" fill="var(--surface)"/><circle cx="19" cy="15" r="2.4" fill="var(--surface)"/><circle cx="13" cy="21" r="2.4" fill="var(--surface)"/></svg></span>
-          <div><h3>Input-agnostic design</h3><p>Every action works with touch, mouse, gamepad and motion controllers. No platform gets a second-class port.</p></div>
-        </div>
-        <div class="m">
-          <span class="tile" style="background:color-mix(in srgb,var(--turq) 18%,transparent);color:var(--turq)"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 22a11 11 0 0 1 22 0"/><path d="m15 22 5-7"/></svg></span>
-          <div><h3>A frame budget per device</h3><p>We set performance targets for the weakest supported phone and test against them every week, so the game runs smoothly on all of them.</p></div>
-        </div>
-        <div class="m">
-          <span class="tile" style="background:color-mix(in srgb,var(--sun) 28%,transparent);color:var(--ink)"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 5h14v20l-7-4-7 4z"/></svg></span>
-          <div><h3>Shared saves, shared friends</h3><p>Cross-save and cross-play where the stores allow it. Start on the bus, finish on the sofa.</p></div>
-        </div>
+      <div class="skills">
+        <div class="skill pbox"><div class="slot"><canvas class="spr" data-sprite="heart" aria-hidden="true"></canvas></div><div><h3>Fun before features</h3><p>We prototype the core loop in days and keep only the ideas that make people smile on the first try.</p></div></div>
+        <div class="skill pbox"><div class="slot"><canvas class="spr" data-sprite="dpad" aria-hidden="true"></canvas></div><div><h3>Input-agnostic design</h3><p>Every action works with touch, mouse, gamepad and motion controllers. No platform gets a second-class port.</p></div></div>
+        <div class="skill pbox"><div class="slot"><canvas class="spr" data-sprite="bolt" aria-hidden="true"></canvas></div><div><h3>A frame budget per device</h3><p>We set performance targets for the weakest supported phone and test against them every week, so the game runs smoothly on all of them.</p></div></div>
+        <div class="skill pbox"><div class="slot"><canvas class="spr" data-sprite="floppy" aria-hidden="true"></canvas></div><div><h3>Shared saves, shared friends</h3><p>Cross-save and cross-play where the stores allow it. Start on the bus, finish on the sofa.</p></div></div>
       </div>
     </div>
   </section>
 
   <section id="games">
-    <div class="wrap status">
-      <div>
-        <p class="eyebrow">Games</p>
-        <h2>Our first titles are on the way.</h2>
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow sec-label">Games</p>
+          <h2>Our first titles are on the way.</h2>
+        </div>
         <p><span class="yakinda">Yakında</span> means "coming soon" in Turkish. That's where we are right now: building, testing, and getting ready to show you something.</p>
-        <p>Leave your email and we'll tell you when the first game is playable.</p>
-        <form class="signup" id="signup" novalidate>
-          <label for="email" class="eyebrow" style="position:absolute;left:-9999px">Email address</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-          <button class="btn" type="submit">Notify me</button>
-        </form>
-        <div class="formnote" id="formnote" role="status"></div>
       </div>
-      <div class="board" aria-label="Studio pipeline">
-        <p class="eyebrow">Studio pipeline</p>
-        <div class="row"><div><b>Project One</b><small>Casual puzzle · Mobile, Web</small></div><span class="pill dev">In development</span></div>
-        <div class="row"><div><b>Project Two</b><small>Couch co-op · PC, Console</small></div><span class="pill proto">Prototype</span></div>
-        <div class="row"><div><b>Project Three</b><small>Cozy sim · All platforms</small></div><span class="pill idea">Concept</span></div>
+      <div class="games">
+        <div class="files pbox" aria-label="Studio pipeline">
+          <h3>Select file</h3>
+          <div class="file"><span class="no">FILE 1</span><div><b>Project One</b><small>Casual puzzle · Mobile, Web</small></div><span class="stagebar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="lbl"><span>Stage</span><span>In development</span></span></div>
+          <div class="file"><span class="no">FILE 2</span><div><b>Project Two</b><small>Couch co-op · PC, Console</small></div><span class="stagebar" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span class="lbl"><span>Stage</span><span>Prototype</span></span></div>
+          <div class="file"><span class="no">FILE 3</span><div><b>Project Three</b><small>Cozy sim · All platforms</small></div><span class="stagebar" aria-hidden="true"><i class="on"></i><i></i><i></i></span><span class="lbl"><span>Stage</span><span>Concept</span></span></div>
+        </div>
+        <div class="party pbox">
+          <h3>Join the party</h3>
+          <p>Leave your email and we'll tell you when the first game is playable. One email, no spam.</p>
+          <form class="signup" id="signup" novalidate>
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            <button class="btn mint cursor-able" type="submit">Notify me</button>
+          </form>
+          <div class="formnote" id="formnote" role="status"></div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="contact">
     <div class="wrap">
-      <div class="contact">
-        <canvas class="pattern" id="pattern" aria-hidden="true"></canvas>
+      <div class="talk pbox">
+        <div class="portrait"><canvas class="spr" data-sprite="mascot" aria-hidden="true"></canvas></div>
         <div>
-          <p class="eyebrow" style="color:#fff;opacity:.75">Contact</p>
+          <span class="nametag">KEYIF</span>
           <h2>Let's make something fun.</h2>
           <p>Publishers, platform partners, press and people who want to join the team: we'd love to hear from you.</p>
-        </div>
-        <div class="mail">
-          <a href="mailto:eyupkeyif@keyifgame.com" style="color:inherit;text-decoration:none"><code id="mailaddr">eyupkeyif@keyifgame.com</code></a>
-          <button type="button" id="copy">Copy</button>
+          <div class="mailrow">
+            <a class="mailto" href="mailto:eyupkeyif@keyifgame.com"><code id="mailaddr">eyupkeyif@keyifgame.com</code></a>
+            <button type="button" class="btn alt cursor-able" id="copy">Copy</button>
+          </div>
         </div>
       </div>
     </div>
@@ -338,168 +379,550 @@ footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:va
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Keyif Game · <a href="mailto:eyupkeyif@keyifgame.com">eyupkeyif@keyifgame.com</a></span>
-    <span><dfn>keyif</dfn> (Turkish): the pleasure of a good moment, enjoyed slowly.</span>
+    <p class="thanks">THANKS FOR PLAYING</p>
+    <p>© 2026 Keyif Game · <a href="mailto:eyupkeyif@keyifgame.com">eyupkeyif@keyifgame.com</a></p>
+    <p><dfn>keyif</dfn> (Turkish): the pleasure of a good moment, enjoyed slowly.</p>
   </div>
 </footer>
 
 <script>
 (() => {
-  const PLATFORMS = {
-    mobile:   {r: 9/19.5, label:"9:19.5", input:"Tap & drag",            radius:"28px", pad:"10px"},
-    pc:       {r: 16/10,  label:"16:10",  input:"Mouse & keyboard",      radius:"12px", pad:"10px"},
-    console:  {r: 16/9,   label:"16:9",   input:"Gamepad (← →)",         radius:"6px",  pad:"6px"},
-    handheld: {r: 16/10,  label:"16:10",  input:"Thumbsticks",           radius:"60px", pad:"14px 56px"},
-    web:      {r: 4/3,    label:"Any",    input:"Mouse, touch or keys",  radius:"12px", pad:"6px 8px 8px"},
-    vr:       {r: 2/1,    label:"2 × eye",input:"Motion controllers",    radius:"40px", pad:"16px 22px"},
-  };
-  const stage = document.getElementById("stage");
-  const device = document.getElementById("device");
-  const canvas = document.getElementById("game");
-  const ctx = canvas.getContext("2d");
-  const chips = [...document.querySelectorAll(".chip")];
-  const $input = document.getElementById("input"), $ratio = document.getElementById("ratio"), $score = document.getElementById("score");
-  let current = "mobile", userPicked = false;
-
-  function fit() {
-    const p = PLATFORMS[current];
-    const sw = stage.clientWidth, sh = stage.clientHeight;
-    let h = sh, w = h * p.r;
-    if (w > sw) { w = sw; h = w / p.r; }
-    device.style.width = w + "px";
-    device.style.height = h + "px";
-    device.style.borderRadius = p.radius;
-    device.style.padding = p.pad;
-  }
-  function setPlatform(name) {
-    current = name;
-    device.className = "device " + name;
-    chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.p === name));
-    $input.textContent = PLATFORMS[name].input;
-    $ratio.textContent = PLATFORMS[name].label;
-    fit();
-  }
-  chips.forEach(c => c.addEventListener("click", () => { userPicked = true; setPlatform(c.dataset.p); }));
-  const order = Object.keys(PLATFORMS);
-  setInterval(() => { if (!userPicked && !document.hidden) setPlatform(order[(order.indexOf(current) + 1) % order.length]); }, 3200);
-  new ResizeObserver(fit).observe(stage);
-
-  // --- tiny game: catch falling İznik tiles (normalized 0..1 coordinates)
-  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  let tiles = [], px = .5, target = .5, manualUntil = 0, score = 0, last = performance.now(), spawn = 0;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const C = {
+    ink:"#0d0720", cream:"#fff3dc", muted:"#cdbbe6", lantern:"#ffd36b", coral:"#ff7b5c", mint:"#5ee6b8", rose:"#ff7b9c",
+    panel:"#2a1749", hi:"#4a2a6b", lo:"#160c2c", violet:"#9a7bc4", lav:"#e9dcff", night:"#1a1030"
+  };
 
-  function pointer(e) {
-    const r = canvas.getBoundingClientRect();
-    let x = (e.clientX - r.left) / r.width;
-    if (current === "vr") x = (x % .5) * 2;
-    target = Math.min(1, Math.max(0, x));
-    manualUntil = performance.now() + 2500;
+  /* ---------------- sprites ---------------- */
+  const MASCOT = [
+    "................",
+    "................",
+    "................",
+    "...oooooooooo...",
+    "...oggTTTTTTo...",
+    "....ogTTTTTo....",
+    "....otttttto....",
+    ".....otttto.....",
+    ".....otttto.....",
+    "....ogttttto....",
+    "...ottettetto...",
+    "..otcttttttcto..",
+    "..otttteetttto..",
+    "...otttttttto...",
+    "....oooooooo....",
+    ".osssssssssssso.",
+    "..oSSSSSSSSSSo..",
+    "...oooooooooo..."
+  ];
+  const MASCOT_PAL = {o:C.ink, g:C.cream, T:"#ff9a4a", t:"#d9572b", e:C.ink, c:C.rose, s:C.lav, S:C.violet, w:"rgba(255,243,220,.45)", d:"#b8441f"};
+  function mascotRows({blink=false, arm="down", steam=0, hop=false} = {}) {
+    const rows = MASCOT.map(r => ("." + r + ".").split(""));
+    if (blink) { rows[10][7] = "d"; rows[10][10] = "d"; }
+    const set = (y, x, ch) => { if (rows[y] && x >= 0 && x < rows[y].length) rows[y][x] = ch; };
+    set(11, 2, "o"); set(12, 1, "o");                    // left arm
+    if (arm === "up") { set(10, 15, "o"); set(9, 16, "o"); set(8, 16, "o"); }
+    else { set(11, 15, "o"); set(12, 16, "o"); }
+    const sx = steam ? 1 : 0;                              // two soft wisps drifting the same way
+    set(0, 8 + sx, "w"); set(1, 7 + sx, "w"); set(2, 8 + sx, "w");
+    set(1, 11 - sx, "w"); set(2, 10 - sx, "w");
+    let out = rows.map(r => r.join(""));
+    if (hop) out = out.slice(1).concat([".".repeat(18)]);
+    return out;
   }
-  canvas.addEventListener("pointermove", pointer);
-  canvas.addEventListener("pointerdown", pointer);
-  addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      const r = canvas.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > innerHeight) return;
-      target = Math.min(1, Math.max(0, target + (e.key === "ArrowLeft" ? -.12 : .12)));
-      manualUntil = performance.now() + 2500;
-    }
-  });
-
-  function drawScene(ox, w, h, colors) {
-    ctx.save(); ctx.translate(ox, 0);
-    ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
-    ctx.fillStyle = colors.screen; ctx.fillRect(0, 0, w, h);
-    // faint tile grid
-    ctx.strokeStyle = "rgba(255,255,255,.05)"; ctx.lineWidth = 1;
-    const g = Math.max(18, w / 10);
-    for (let x = 0; x < w; x += g) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
-    for (let y = 0; y < h; y += g) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
-    const s = Math.min(w, h) * .075 + 6;
-    tiles.forEach(t => {
-      ctx.save(); ctx.translate(t.x * w, t.y * h); ctx.rotate(t.rot);
-      ctx.fillStyle = colors.tile[t.c];
-      ctx.beginPath();
-      for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr = i % 2 ? s * .45 : s; ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
-      ctx.closePath(); ctx.fill();
-      ctx.fillStyle = "rgba(255,255,255,.85)"; ctx.beginPath(); ctx.arc(0, 0, s * .18, 0, 7); ctx.fill();
-      ctx.restore();
-    });
-    // basket
-    const bw = Math.max(46, w * .2), bh = Math.max(10, h * .035);
-    ctx.fillStyle = colors.sun;
-    ctx.beginPath(); ctx.roundRect(px * w - bw / 2, h - bh - h * .05, bw, bh, bh / 2); ctx.fill();
-    ctx.restore();
-  }
-
-  function frame(now) {
-    const dt = Math.min(.05, (now - last) / 1000); last = now;
-    const dpr = devicePixelRatio || 1;
-    const W = Math.round(canvas.clientWidth * dpr), H = Math.round(canvas.clientHeight * dpr);
-    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
-    if (!reduce || tiles.length === 0) {
-      spawn -= dt;
-      if (spawn <= 0) { tiles.push({x: .1 + Math.random() * .8, y: -.05, v: .28 + Math.random() * .2, rot: 0, vr: (Math.random() - .5) * 3, c: Math.floor(Math.random() * 3)}); spawn = .7 + Math.random() * .5; }
-      if (now > manualUntil) {
-        const next = tiles.filter(t => t.y < .95).sort((a, b) => b.y - a.y)[0];
-        if (next) target = next.x;
+  const MINI = [
+    ".ooooooo.",
+    ".oTTTTTo.",
+    "..ottto..",
+    ".oteteto.",
+    "otctttcto",
+    "otttettto",
+    ".ottttto.",
+    "..ooooo..",
+    "ossssssso",
+    ".ooooooo."
+  ];
+  const ICON_PAL = {o:C.ink, f:C.violet, F:C.lav, s:"#2a9d9f", h:C.mint, b:C.lantern, d:"#3d2462", a:C.coral, r:C.coral, m:C.mint, y:C.lantern, H:"#ffb3c4", l:C.cream, k:C.ink, B:"#6b3f8f", t:C.coral};
+  const SPRITES = {
+    mascot: {rows: mascotRows(), pal: MASCOT_PAL},
+    mini: {rows: MINI, pal: MASCOT_PAL},
+    phone: {pal: ICON_PAL, rows: [
+      "................",
+      "....oooooooo....",
+      "....offffffo....",
+      "....osssssso....",
+      "....oshhssso....",
+      "....oshsssso....",
+      "....osssssso....",
+      "....osssssso....",
+      "....osssssso....",
+      "....osssssso....",
+      "....osssssso....",
+      "....offffffo....",
+      "....offbbffo....",
+      "....oooooooo....",
+      "................",
+      "................"]},
+    monitor: {pal: ICON_PAL, rows: [
+      "................",
+      "oooooooooooooooo",
+      "offffffffffffffo",
+      "ofssssssssssssfo",
+      "ofshhsssssssssfo",
+      "ofshssssssssssfo",
+      "ofssssssssssssfo",
+      "ofssssssssssssfo",
+      "ofssssssssssssfo",
+      "offffffffffffffo",
+      "oooooooooooooooo",
+      "......offo......",
+      "......offo......",
+      "....oooooooo....",
+      "....offffffo....",
+      "....oooooooo...."]},
+    pad: {pal: ICON_PAL, rows: [
+      "................",
+      "................",
+      "................",
+      "................",
+      "..oooooooooooo..",
+      ".offffffffffffo.",
+      "offdffffffffaffo",
+      "ofdddfffffaffafo",
+      "offdffffffffaffo",
+      "offffffooffffffo",
+      "offffoo..ooffffo",
+      ".oooo......oooo.",
+      "................",
+      "................",
+      "................",
+      "................"]},
+    handheld: {pal: {...ICON_PAL, f:C.coral}, rows: [
+      "................",
+      "................",
+      "................",
+      "................",
+      ".oooooooooooooo.",
+      "offfoooooooofffo",
+      "ofdfoshssssofafo",
+      "odddossssssoafao",
+      "ofdfossssssofafo",
+      "offfoooooooofffo",
+      ".oooooooooooooo.",
+      "................",
+      "................",
+      "................",
+      "................",
+      "................"]},
+    browser: {pal: ICON_PAL, rows: [
+      "................",
+      "oooooooooooooooo",
+      "ofrfbfmfffffffffo".slice(0,15) + "o",
+      "oooooooooooooooo",
+      "osssssssssssssso",
+      "oshhhhhsssssssso",
+      "osssssssssssssso",
+      "oshhhsssssssssso",
+      "osssssssssssssso",
+      "osssssmmmmssssso",
+      "osssssssssssssso",
+      "oooooooooooooooo",
+      "................",
+      "................",
+      "................",
+      "................"]},
+    vr: {pal: ICON_PAL, rows: [
+      "................",
+      "................",
+      "................",
+      "..o..........o..",
+      "..o..........o..",
+      "...oooooooooo...",
+      "..offffffffffo..",
+      ".offsssffsssffo.",
+      "ooffshsffshsffoo",
+      ".offsssffsssffo.",
+      "..offfo..offfo..",
+      "...ooo....ooo...",
+      "................",
+      "................",
+      "................",
+      "................"]},
+    heart: {pal: {o:C.ink, h:C.coral, H:"#ffb3c4"}, rows: [
+      ".ooo...ooo.",
+      "oHhho.ohhho",
+      "oHhhhohhhho",
+      "ohhhhhhhhho",
+      ".ohhhhhhho.",
+      "..ohhhhho..",
+      "...ohhho...",
+      "....oho....",
+      ".....o....."]},
+    bolt: {pal: {o:C.ink, y:C.lantern}, rows: [
+      "....ooooo",
+      "...oyyyo.",
+      "..oyyyo..",
+      ".oyyyoooo",
+      "oyyyyyyyo",
+      "ooooyyyo.",
+      "...oyyo..",
+      "..oyyo...",
+      ".oyyo....",
+      ".ooo....."]},
+    floppy: {pal: {o:C.ink, b:"#6b3f8f", m:C.lav, d:C.ink, l:C.cream, k:"#6b3f8f"}, rows: [
+      "oooooooooooo",
+      "obbmmmmmdbbo",
+      "obbmmmmmdbbo",
+      "obbmmmmmmbbo",
+      "obbbbbbbbbbo",
+      "obllllllllbo",
+      "oblkkkkkllbo",
+      "obllllllllbo",
+      "oblkkkklllbo",
+      "obllllllllbo",
+      "oooooooooooo"]},
+    dpad: {pal: {o:C.ink, a:C.mint, H:"#b8ffe6"}, rows: [
+      "...ooooo...",
+      "...oaaao...",
+      "...oaHao...",
+      "ooooaaaoooo",
+      "oaaaaaaaaao",
+      "oHaaaaaaaHo",
+      "oaaaaaaaaao",
+      "ooooaaaoooo",
+      "...oaaao...",
+      "...oaHao...",
+      "...ooooo..."]},
+    star: {pal: {o:C.ink, y:C.lantern, Y:"#fff0b8"}, rows: [
+      "...o...",
+      "..oYo..",
+      "ooyYyoo",
+      "oyyyyyo",
+      ".oyyyo.",
+      "oyyoyyo",
+      "oo...oo"]},
+    cursor: {pal: {o:C.ink, y:C.lantern}, rows: [
+      "oo....",
+      "oyo...",
+      "oyyo..",
+      "oyyyo.",
+      "oyyyyo",
+      "oyyyo.",
+      "oyyo..",
+      "oyo...",
+      "oo...."]}
+  };
+  function drawRows(ctx, rows, pal, x = 0, y = 0) {
+    for (let j = 0; j < rows.length; j++) {
+      const r = rows[j];
+      for (let i = 0; i < r.length; i++) {
+        const col = pal[r[i]];
+        if (col) { ctx.fillStyle = col; ctx.fillRect(x + i, y + j, 1, 1); }
       }
-      px += (target - px) * Math.min(1, dt * 7);
-      tiles.forEach(t => { t.y += t.v * dt; t.rot += t.vr * dt; });
-      tiles = tiles.filter(t => {
-        if (t.y > .9 && t.y < .96 && Math.abs(t.x - px) < .13) { score++; $score.textContent = score; return false; }
-        return t.y < 1.1;
+    }
+  }
+  function paintSprite(cv, rows, pal) {
+    cv.width = Math.max(...rows.map(r => r.length)); cv.height = rows.length;
+    const ctx = cv.getContext("2d"); ctx.clearRect(0, 0, cv.width, cv.height);
+    drawRows(ctx, rows, pal);
+  }
+  document.querySelectorAll("canvas.spr").forEach(cv => {
+    const s = SPRITES[cv.dataset.sprite]; if (!s) return;
+    paintSprite(cv, s.rows, s.pal);
+    if (cv.dataset.px) { cv.style.width = cv.width * +cv.dataset.px + "px"; cv.style.height = cv.height * +cv.dataset.px + "px"; }
+  });
+  const toURL = s => { const cv = document.createElement("canvas"); paintSprite(cv, s.rows, s.pal); return cv.toDataURL(); };
+  document.documentElement.style.setProperty("--cursor", `url(${toURL(SPRITES.cursor)})`);
+  document.documentElement.style.setProperty("--star", `url(${toURL(SPRITES.star)})`);
+
+  // page background: sparse pixel stars on the night ground
+  (() => {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 96;
+    const ctx = cv.getContext("2d"); ctx.fillStyle = C.night; ctx.fillRect(0, 0, 96, 96);
+    const pts = [[7,11,"#3d2462"],[41,5,"#4a2a6b"],[73,19,"#3d2462"],[19,47,"#4a2a6b"],[59,61,"#3d2462"],[88,52,"#4a2a6b"],[31,83,"#3d2462"],[80,88,"#4a2a6b"],[52,33,"#5a3a86"]];
+    pts.forEach(([x, y, c]) => { ctx.fillStyle = c; ctx.fillRect(x, y, 1, 1); });
+    document.body.style.backgroundImage = `url(${cv.toDataURL()})`;
+  })();
+
+  // run an animation only while its element is on screen and the tab is visible
+  function loop(el, fps, step) {
+    let on = false, vis = true, raf = 0, last = 0;
+    const tick = now => { if (!on) return; if (now - last >= 1000 / fps) { step(now, Math.min(.1, (now - last) / 1000)); last = now; } raf = requestAnimationFrame(tick); };
+    const update = () => { const want = vis && !document.hidden && !reduce; if (want && !on) { on = true; last = performance.now(); raf = requestAnimationFrame(tick); } else if (!want && on) { on = false; cancelAnimationFrame(raf); } };
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; update(); }).observe(el);
+    document.addEventListener("visibilitychange", update);
+    return update;
+  }
+
+  /* ---------------- hero dusk scene ---------------- */
+  const scene = document.getElementById("scene"), sctx = scene.getContext("2d");
+  let S = null;
+  const SKY = ["#140b29","#1b1032","#24143f","#2d1b4e","#3d2462","#55296f","#73347c","#9a3f82","#c2507a","#e2646f","#ff8a5c","#ffb44a"];
+  const HILLS = [
+    {c:"#5b3a86", rim:"#8a5aa8", base:.66, amp:.035, f1:.021, f2:.057, ph:1.3},
+    {c:"#3d2462", rim:"#5b3a86", base:.74, amp:.05,  f1:.016, f2:.041, ph:4.1},
+    {c:"#2a1749", rim:"#3d2462", base:.84, amp:.045, f1:.024, f2:.063, ph:2.2},
+    {c:C.night,   rim:"#24143f", base:.97, amp:.025, f1:.031, f2:.08,  ph:.7}
+  ];
+  const HOUSE = [
+    "........cc...",
+    "......o.cc...",
+    ".....orocc...",
+    "....orrrro...",
+    "...orrrrrro..",
+    "..orrrrrrrro.",
+    ".orrrrrrrrrro",
+    "..owwwwwwwwo.",
+    "..owLLwwLLwo.",
+    "..owLLwwddwo.",
+    "..owwwwwddwo.",
+    "..oooooooooo."
+  ];
+  const HOUSE_PAL = {o:"#140b29", r:"#9c3f5a", w:"#5a3478", L:C.lantern, d:"#2a1749", c:"#3d2462"};
+  const TREE = ["..t..",".ttt.","..t..",".ttt.","ttttt",".ttt.","ttttt","..k.."];
+  const hillY = (L, x, w, h) => Math.round(h * L.base - h * L.amp * (0.6 * Math.sin(x * L.f1 + L.ph) + 0.4 * Math.sin(x * L.f2 + L.ph * 2)) - (L.base > .9 ? 0 : 0));
+  let rnd = 1; const rand = () => (rnd = (rnd * 16807) % 2147483647) / 2147483647;
+
+  function buildScene() {
+    const cssW = scene.clientWidth, cssH = scene.clientHeight; if (!cssW || !cssH) return;
+    const p = Math.max(3, Math.round(cssW / 300));
+    const w = Math.ceil(cssW / p), h = Math.ceil(cssH / p);
+    scene.width = w; scene.height = h;
+    rnd = 7;
+    const horizon = Math.round(h * .64);
+    // back layer: sky + sun
+    const back = document.createElement("canvas"); back.width = w; back.height = h;
+    const b = back.getContext("2d");
+    const band = horizon / SKY.length;
+    for (let y = 0; y < h; y++) {
+      const k = Math.min(SKY.length - 1, Math.floor(y / band)), next = Math.min(SKY.length - 1, k + 1);
+      const into = y - k * band;
+      for (let x = 0; x < w; x++) {
+        const dither = into > band - 2 && ((x + y) % 2 === 0);
+        b.fillStyle = dither ? SKY[next] : SKY[k]; b.fillRect(x, y, 1, 1);
+      }
+    }
+    const sx = Math.round(w * .72), sy = horizon - 2, r = Math.round(Math.min(w, h) * .16);
+    for (let y = -r; y <= 0; y++) for (let x = -r; x <= r; x++) {
+      if (x * x + y * y > r * r) continue;
+      const fromTop = (y + r) / r;                                   // 0 top .. 1 horizon
+      if (fromTop > .55 && ((sy + y) % 4 === 0 || (fromTop > .78 && (sy + y) % 4 === 1))) continue; // retro stripes
+      b.fillStyle = fromTop < .35 ? "#fff0b8" : fromTop < .6 ? C.lantern : "#ffb44a";
+      b.fillRect(sx + x, sy + y, 1, 1);
+    }
+    // front layer: hills, house, trees
+    const front = document.createElement("canvas"); front.width = w; front.height = h;
+    const f = front.getContext("2d");
+    HILLS.forEach((L, li) => {
+      for (let x = 0; x < w; x++) {
+        const y = hillY(L, x, w, h);
+        f.fillStyle = L.c; f.fillRect(x, y, 1, h - y);
+        f.fillStyle = L.rim; f.fillRect(x, y, 1, 1);
+      }
+      if (li === 1) {                                                   // cottage on the middle hill
+        const hx = Math.round(w * (cssW < 700 ? .14 : .2)), hy = hillY(L, hx + 6, w, h) - HOUSE.length + 2;
+        drawRows(f, HOUSE, HOUSE_PAL, hx, hy);
+        S && (S.chimney = [hx + 8, hy]);
+        S = S || {}; S.chimney = [hx + 8, hy];
+      }
+      if (li === 2) {                                                   // pine trees on the near hill
+        const tp = {t:"#1f1140", k:"#140b29"};
+        [.05, .09, .33, .38, .56, .9, .94].forEach(fx => { const tx = Math.round(w * fx); drawRows(f, TREE, tp, tx, hillY(L, tx + 2, w, h) - TREE.length + 2); });
+      }
+    });
+    const stars = [];
+    const nStars = Math.round(w * horizon / 260);
+    for (let i = 0; i < nStars; i++) stars.push({x: Math.floor(rand() * w), y: Math.floor(rand() * horizon * .55), ph: rand() * 6.28, sp: .6 + rand() * 1.6, big: rand() < .08, c: rand() < .3 ? "#ffd8f0" : C.cream});
+    const clouds = [];
+    for (let i = 0; i < 4; i++) clouds.push({x: rand() * w, y: horizon * (.25 + rand() * .45), s: 10 + rand() * 14, v: .6 + rand() * 1.2});
+    const flies = [];
+    for (let i = 0; i < 10; i++) flies.push({x: rand() * w, y: h * (.8 + rand() * .15), ph: rand() * 6.28, c: rand() < .5 ? C.mint : C.lantern});
+    S = Object.assign(S || {}, {w, h, back, front, stars, clouds, flies, horizon});
+    drawScene(0);
+  }
+  function cloud(ctx, c) {
+    const blobs = [[0, 0, 1], [.9, -.35, .8], [1.8, 0, .9], [-.9, .1, .7], [2.6, .15, .6]];
+    for (const pass of [0, 1]) {
+      ctx.fillStyle = pass ? "#f39bb0" : "#b85a8c";
+      blobs.forEach(([bx, by, br]) => {
+        const R = c.s * .5 * br, cx = c.x + bx * c.s * .5, cy = c.y + by * c.s * .5 - (pass ? 1 : 0);
+        for (let y = -R; y <= R * (pass ? .2 : .55); y++) {
+          const half = Math.floor(Math.sqrt(Math.max(0, R * R - y * y)));
+          ctx.fillRect(Math.round(cx - half), Math.round(cy + y), half * 2, 1);
+        }
       });
     }
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    if (current === "vr") {
-      const half = W / 2;
-      drawScene(0, half - dpr * 2, H, colors);
-      drawScene(half + dpr * 2, half - dpr * 2, H, colors);
-    } else drawScene(0, W, H, colors);
-    raf = running ? requestAnimationFrame(frame) : 0;
   }
-
-  // read theme colors once, and again only when the theme changes
-  let colors;
-  const readColors = () => { colors = {screen: css("--screen"), sun: css("--sun"), tile: [css("--coral"), css("--turq"), css("--cobalt")]}; };
-  readColors();
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", readColors);
-  new MutationObserver(readColors).observe(document.documentElement, {attributes: true, attributeFilter: ["data-theme"]});
-
-  // run the loop only while the demo is on screen and the tab is visible
-  let raf = 0, running = false, onScreen = true;
-  function updateRunning() {
-    const should = onScreen && !document.hidden;
-    if (should && !running) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
-    else if (!should && running) { running = false; cancelAnimationFrame(raf); raf = 0; }
-  }
-  new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; updateRunning(); }).observe(canvas);
-  document.addEventListener("visibilitychange", updateRunning);
-
-  setPlatform("mobile");
-  updateRunning();
-
-  // --- contact pattern: İznik-style eight-point stars
-  const pc = document.getElementById("pattern"), pctx = pc.getContext("2d");
-  function pattern() {
-    const r = pc.parentElement.getBoundingClientRect(), dpr = devicePixelRatio || 1;
-    const W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
-    if (pc.width === W && pc.height === H) return;
-    pc.width = W; pc.height = H;
-    pctx.setTransform(dpr, 0, 0, dpr, 0, 0); pctx.strokeStyle = "#fff"; pctx.lineWidth = 1.4;
-    const g = 56;
-    for (let y = 0; y < r.height + g; y += g) for (let x = 0; x < r.width + g; x += g) {
-      pctx.beginPath();
-      for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8, rr = i % 2 ? g * .2 : g * .42; pctx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
-      pctx.closePath(); pctx.stroke();
+  function drawScene(t) {
+    if (!S) return;
+    const {w, h} = S;
+    sctx.clearRect(0, 0, w, h);
+    sctx.drawImage(S.back, 0, 0);
+    for (const s of S.stars) {
+      const tw = Math.sin(t * .001 * s.sp + s.ph);
+      if (tw < -.35) continue;
+      sctx.fillStyle = s.c; sctx.fillRect(s.x, s.y, 1, 1);
+      if (s.big && tw > .6) { sctx.fillRect(s.x - 1, s.y, 3, 1); sctx.fillRect(s.x, s.y - 1, 1, 3); }
+    }
+    S.clouds.forEach(c => cloud(sctx, c));
+    sctx.drawImage(S.front, 0, 0);
+    if (S.chimney) {                                                    // chimney smoke
+      const [cx, cy] = S.chimney;
+      for (let i = 0; i < 4; i++) {
+        const k = ((t * .0006) + i / 4) % 1;
+        sctx.fillStyle = `rgba(205,187,230,${.55 * (1 - k)})`;
+        const px = Math.round(cx + Math.sin(k * 5 + i) * 2 + k * 6), py = Math.round(cy - 2 - k * 16);
+        sctx.fillRect(px, py, 2, 2);
+      }
+    }
+    for (const fl of S.flies) {
+      const on = Math.sin(t * .002 + fl.ph) > .2; if (!on) continue;
+      sctx.fillStyle = fl.c;
+      sctx.fillRect(Math.round(fl.x + Math.sin(t * .0007 + fl.ph) * 6), Math.round(fl.y + Math.cos(t * .0009 + fl.ph) * 3), 1, 1);
     }
   }
-  new ResizeObserver(pattern).observe(pc.parentElement);
+  new ResizeObserver(buildScene).observe(scene);
+  loop(scene, 12, (now, dt) => {
+    if (!S) return;
+    S.clouds.forEach(c => { c.x += c.v * dt * 3; if (c.x - c.s > S.w) c.x = -c.s * 2; });
+    drawScene(now);
+  })();
+  if (reduce) requestAnimationFrame(() => drawScene(0));
 
-  // --- signup
-  // Paste your free Formspree form ID here (formspree.io → New form → e.g. "xyzabcd").
+  /* ---------------- mascot ---------------- */
+  const mcv = document.getElementById("mascot"), bubble = document.getElementById("bubble");
+  const LINES = [
+    "Hoş geldin! Grab a çay and press start.",
+    "Keyif means enjoying the moment. Slowly.",
+    "Psst. Try the demo below. I love sugar.",
+    "Phone, PC, console, web… I'm everywhere.",
+    "Two sugars, please!"
+  ];
+  let mState = {blink: false, arm: "down", steam: 0, hop: false}, waveUntil = 0, line = 0;
+  const paintMascot = () => paintSprite(mcv, mascotRows(mState), MASCOT_PAL);
+  paintMascot();
+  let tPrev = 0;
+  loop(mcv, 6, now => {
+    mState.steam = Math.floor(now / 500) % 2;
+    mState.blink = (now % 3200) < 180;
+    mState.arm = now < waveUntil ? (Math.floor(now / 220) % 2 ? "up" : "down") : (Math.floor(now / 4000) % 3 === 0 && (now % 4000) < 900 ? (Math.floor(now / 220) % 2 ? "up" : "down") : "down");
+    mState.hop = now < waveUntil && Math.floor(now / 300) % 2 === 0;
+    paintMascot();
+  })();
+  const poke = () => {
+    line = (line + 1) % LINES.length; bubble.textContent = LINES[line];
+    waveUntil = performance.now() + 1500;
+    if (reduce) { mState.arm = "up"; paintMascot(); setTimeout(() => { mState.arm = "down"; paintMascot(); }, 600); }
+  };
+  mcv.addEventListener("click", poke);
+  mcv.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); poke(); } });
+  document.getElementById("press").addEventListener("click", () => document.getElementById("platforms").scrollIntoView({behavior: reduce ? "auto" : "smooth"}));
+
+  /* ---------------- demo: sugar for the çay ---------------- */
+  const DEV = {
+    mobile:   {res:[72,128],  label:"9:16",    input:"Tap & drag",           frame:"#c9b6e4", pad:"12px 8px 14px"},
+    pc:       {res:[160,100], label:"16:10",   input:"Mouse & keyboard",     frame:"#4a2a6b", pad:"10px"},
+    console:  {res:[160,90],  label:"16:9",    input:"Gamepad (← →)",        frame:"#24143f", pad:"8px"},
+    handheld: {res:[144,90],  label:"16:10",   input:"Thumbsticks",          frame:"#ff7b5c", pad:"10px 46px"},
+    web:      {res:[128,96],  label:"Any",     input:"Mouse, touch or keys", frame:"#cdbbe6", pad:"6px 8px 8px"},
+    vr:       {res:[160,80],  label:"2 × eye", input:"Motion controllers",   frame:"#6b3f8f", pad:"14px 22px"}
+  };
+  const stage = document.getElementById("stage"), device = document.getElementById("device"), game = document.getElementById("game"), g = game.getContext("2d");
+  const chips = [...document.querySelectorAll(".chip")];
+  const $input = document.getElementById("input"), $ratio = document.getElementById("ratio"), $score = document.getElementById("score");
+  let cur = "mobile", picked = false;
+  function fitDevice() {
+    const d = DEV[cur];
+    device.className = "device " + cur;
+    device.style.setProperty("--frame", d.frame); device.style.setProperty("--pad", d.pad);
+    game.width = d.res[0]; game.height = d.res[1];
+    const padX = cur === "handheld" ? 92 : cur === "vr" ? 44 : 24, padY = cur === "web" ? 40 : 36;
+    const sc = Math.max(1, Math.floor(Math.min((stage.clientWidth - padX - 24) / d.res[0], (stage.clientHeight - padY - 30) / d.res[1])));
+    game.style.width = d.res[0] * sc + "px"; game.style.height = d.res[1] * sc + "px";
+    G.reset(); drawGame();
+  }
+  function setDev(name) {
+    cur = name;
+    chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.p === name));
+    $input.textContent = DEV[name].input; $ratio.textContent = DEV[name].label;
+    fitDevice();
+  }
+  chips.forEach(c => c.addEventListener("click", () => { picked = true; setDev(c.dataset.p); }));
+
+  const SUGAR = ["llls","llls","llls","ssss"], SUGAR_PAL = {l:C.cream, s:"#c9b6e4"};
+  const STARS = ["..y..",".yyy.","yyyyy",".yyy.",".y.y."], STAR_PAL = {y:C.lantern};
+  const MINI_BLINK = MINI.map((r, i) => i === 3 ? ".otdtdto." : r);
+  const G = {
+    items: [], px: .5, target: .5, manual: 0, score: 0, spawn: 0, happy: 0,
+    reset() { this.items = []; this.spawn = 0; }
+  };
+  function viewW() { return cur === "vr" ? game.width / 2 : game.width; }
+  function drawView(ox, w, h) {
+    g.save(); g.beginPath(); g.rect(ox, 0, w, h); g.clip();
+    const bands = ["#24143f","#3d2462","#73347c","#c2507a","#ff8a5c"];
+    const bh = Math.ceil(h * .62 / bands.length);
+    bands.forEach((c, i) => { g.fillStyle = c; g.fillRect(ox, i * bh, w, bh + 1); });
+    g.fillStyle = "#ffb44a"; g.fillRect(ox, bands.length * bh, w, h);
+    // little sun + hills
+    g.fillStyle = C.lantern; const sr = Math.max(4, Math.round(h * .09)); const scx = ox + Math.round(w * .72), scy = Math.round(h * .62);
+    for (let y = -sr; y <= 0; y++) { const half = Math.floor(Math.sqrt(sr * sr - y * y)); if (y > -sr * .45 && (scy + y) % 3 === 0) continue; g.fillRect(scx - half, scy + y, half * 2, 1); }
+    for (let x = 0; x < w; x++) {
+      const y1 = Math.round(h * .66 - h * .05 * Math.sin(x * .09 + 1)); g.fillStyle = "#3d2462"; g.fillRect(ox + x, y1, 1, h - y1);
+      const y2 = Math.round(h * .8 - h * .03 * Math.sin(x * .13 + 3)); g.fillStyle = "#24143f"; g.fillRect(ox + x, y2, 1, h - y2);
+    }
+    const ground = h - 4; g.fillStyle = C.night; g.fillRect(ox, ground, w, 4);
+    G.items.forEach(it => drawRows(g, it.k ? STARS : SUGAR, it.k ? STAR_PAL : SUGAR_PAL, ox + Math.round(it.x * (w - 6)), Math.round(it.y)));
+    const blink = (performance.now() % 3000) < 150;
+    const hop = G.happy > 0 ? -2 : 0;
+    drawRows(g, blink ? MINI_BLINK : MINI, {...MASCOT_PAL, d:"#b8441f"}, ox + Math.round(G.px * (w - 9)), ground - 10 + hop);
+    g.restore();
+  }
+  function drawGame() {
+    const H = game.height;
+    g.clearRect(0, 0, game.width, H);
+    if (cur === "vr") { const w = game.width / 2; drawView(0, w - 1, H); drawView(w + 1, w - 1, H); g.fillStyle = C.ink; g.fillRect(w - 1, 0, 2, H); }
+    else drawView(0, game.width, H);
+  }
+  function stepGame(now, dt) {
+    const H = game.height, w = viewW();
+    G.spawn -= dt;
+    if (G.spawn <= 0) { G.items.push({x: .05 + Math.random() * .9, y: -6, v: H * (.28 + Math.random() * .18), k: Math.random() < .25}); G.spawn = .7 + Math.random() * .6; }
+    if (now > G.manual) { const n = G.items.filter(i => i.y < H - 12).sort((a, b) => b.y - a.y)[0]; if (n) G.target = n.x; }
+    G.px += (G.target - G.px) * Math.min(1, dt * 6);
+    G.happy = Math.max(0, G.happy - dt);
+    G.items.forEach(i => i.y += i.v * dt);
+    const catchY = H - 4 - 10;
+    G.items = G.items.filter(i => {
+      const ix = i.x * (w - 6) + 2, mx = G.px * (w - 9) + 4.5;
+      if (i.y + 4 >= catchY && i.y < catchY + 4 && Math.abs(ix - mx) < 7) { G.score += i.k ? 3 : 1; $score.textContent = G.score; G.happy = .25; return false; }
+      return i.y < H + 4;
+    });
+    drawGame();
+  }
+  function pointer(e) {
+    const r = game.getBoundingClientRect();
+    let x = (e.clientX - r.left) / r.width;
+    if (cur === "vr") x = (x % .5) * 2;
+    G.target = Math.min(1, Math.max(0, x)); G.manual = performance.now() + 2500;
+  }
+  game.addEventListener("pointermove", pointer);
+  game.addEventListener("pointerdown", pointer);
+  let demoOn = true;
+  addEventListener("keydown", e => {
+    if (!demoOn || (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) return;
+    const r = game.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    G.target = Math.min(1, Math.max(0, G.target + (e.key === "ArrowLeft" ? -.12 : .12))); G.manual = performance.now() + 2500;
+  });
+  new ResizeObserver(fitDevice).observe(stage);
+  setDev("mobile");
+  const order = Object.keys(DEV); let lastSwap = performance.now();
+  loop(game, 30, (now, dt) => {
+    stepGame(now, dt);
+    if (!picked && now - lastSwap > 4500) { lastSwap = now; setDev(order[(order.indexOf(cur) + 1) % order.length]); }
+  })();
+  if (reduce) { G.items = [{x:.3, y:20, v:0, k:false}, {x:.7, y:40, v:0, k:true}]; drawGame(); }
+
+  /* ---------------- sign-up ---------------- */
+  // Paste a free Formspree form ID here (formspree.io → New form, e.g. "xyzabcd").
   // Until then the button opens the visitor's email app with a pre-filled message to the studio.
   const FORMSPREE_ID = "";
   const STUDIO_EMAIL = "eyupkeyif@keyifgame.com";
@@ -516,21 +939,19 @@ footer dfn{font-style:normal;font-family:var(--display);font-weight:600;color:va
     }
     btn.disabled = true; note.textContent = "Sending…";
     try {
-      const res = await fetch("https://formspree.io/f/" + FORMSPREE_ID, {
-        method: "POST", headers: {"Accept": "application/json"}, body: new FormData(e.target)
-      });
+      const res = await fetch("https://formspree.io/f/" + FORMSPREE_ID, {method: "POST", headers: {"Accept": "application/json"}, body: new FormData(e.target)});
       if (!res.ok) throw new Error(res.status);
-      note.textContent = "Thanks! We'll let you know when the first game is ready.";
+      note.textContent = "Party joined! We'll write when the first game is ready.";
       input.value = "";
     } catch (err) {
       note.textContent = "That didn't go through. Try again, or email " + STUDIO_EMAIL + ".";
     } finally { btn.disabled = false; }
   });
 
-  // --- copy email
+  /* ---------------- copy email ---------------- */
   document.getElementById("copy").addEventListener("click", e => {
     const btn = e.currentTarget, text = document.getElementById("mailaddr").textContent;
-    navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy", 1800); })
+    navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copied!"; setTimeout(() => btn.textContent = "Copy", 1800); })
       .catch(() => { const sel = getSelection(), range = document.createRange(); range.selectNodeContents(document.getElementById("mailaddr")); sel.removeAllRanges(); sel.addRange(range); btn.textContent = "Selected"; });
   });
 })();
